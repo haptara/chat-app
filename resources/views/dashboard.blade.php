@@ -13,7 +13,8 @@
                     <ul>
                         @foreach ($users as $user)
                             <li class="list-disct">
-                                <a href="{{ route('chat', $user->id) }}" class="link">{{ $user->name }}</a>
+                                <a wire:navigate href="{{ route('chat', $user->id) }}"
+                                    class="link">{{ $user->name }}</a>
                             </li>
                         @endforeach
                     </ul>

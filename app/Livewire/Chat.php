@@ -16,7 +16,17 @@ class Chat extends Component
 
     public function render()
     {
-        return view('livewire.chat');
+        $message = Message::where('from_user_id', auth()->id())
+            ->orWhere('from_user_id', $this->user->id)
+            ->orWhere('to_user_id', auth()->id())
+            ->orWhere('to_user_id', $this->user->id)
+            ->get();
+
+        $data   = [
+            'messages'  => $message
+        ];
+
+        return view('livewire.chat', $data);
     }
 
     public function sendMessage()
@@ -26,5 +36,7 @@ class Chat extends Component
             'to_user_id'    => $this->user->id,
             'message'       => $this->message,
         ]);
+
+        $this->reset('message');
     }
 }
